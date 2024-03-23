@@ -93,7 +93,7 @@ stages:
             artifact: drop
           - task: AzureWebApp@1
             inputs:
-              azureSubscription: '$(subscriptionID)'
+              azureSubscription: '$(Release.subscriptionID)'
               appType: 'webAppLinux'
               appName: '$(webAppNameDev)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
