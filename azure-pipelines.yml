@@ -93,7 +93,7 @@ stages:
             artifact: drop
           - task: AzureWebApp@1
             inputs:
-              azureSubscription: '$(suscriptionID)' #'nexgbitspay-as-you-go(612497ee-3913-4876-8bbd-25ad368306aa)'
+              azureSubscription: '$(Release.suscriptionID)' #'nexgbitspay-as-you-go(612497ee-3913-4876-8bbd-25ad368306aa)'
               appType: 'webAppLinux'
               appName: '$(webAppNameDev)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
@@ -117,7 +117,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Azure App Service Deploy: website'
             inputs:
-              azureSubscription: '$(suscriptionID)'
+              azureSubscription: '$(Release.suscriptionID)'
               appType: 'webAppLinux'
               appName: '$(WebAppNameDev)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
