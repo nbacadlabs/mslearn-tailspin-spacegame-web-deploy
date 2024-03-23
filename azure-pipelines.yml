@@ -39,6 +39,9 @@ stages:
 
     - task: gulp@1
       displayName: 'Run gulp tasks'
+      inputs:
+        script: |
+          echo -e $APPINSTALL npm install
 
     - script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'
       displayName: 'Write build info'
