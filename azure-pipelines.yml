@@ -5,16 +5,15 @@ variables:
   buildConfiguration: 'Release'
   releaseBranchName: 'release'
 
+pool:
+  name: Default
+
 stages:
 - stage: 'Build'
   displayName: 'Build the web application'
   jobs: 
   - job: 'Build'
     displayName: 'Build job'
-    pool:
-      name: 'Default'
-      demands:
-      - npm
 
     variables:
       wwwrootDir: 'Tailspin.SpaceGame.Web/wwwroot'
