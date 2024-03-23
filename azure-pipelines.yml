@@ -93,7 +93,31 @@ stages:
             artifact: drop
           - task: AzureWebApp@1
             inputs:
-              azureSubscription: 'nexgbitspay-as-you-go(612497ee-3913-4876-8bbd-25ad368306aa)'
+              azureSubscription: '$(suscriptionID)' #'nexgbitspay-as-you-go(612497ee-3913-4876-8bbd-25ad368306aa)'
               appType: 'webAppLinux'
               appName: '$(webAppNameDev)'
+              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+
+- stage: 'Staging'
+  displayName: 'Deploy to the staging environment'
+  dependsOn: Dev
+  jobs:
+  - deployment: Deploy
+    pool:
+      name: Default
+    environment: staging
+    variables:
+    - group: 'Release'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: drop
+          - task: AzureWebApp@1
+            displayName: 'Azure App Service Deploy: website'
+            inputs:
+              azureSubscription: '$(suscriptionID)'
+              appType: 'webAppLinux'
+              appName: '$(WebAppNameDev)'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
